@@ -1,0 +1,130 @@
+/*
+Cores:
+#0460d9
+#0081db
+#203E5B
+#F24F13
+*/
+
+@media only screen and (max-device-width:900px) {
+    .body {
+        width: 100%;
+    }
+}
+.body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start; /* Alinhe o conteúdo à esquerda */
+    margin-left: 300px;
+    z-index: 2; /* Certifique-se de que o cabeçalho esteja sempre na frente */
+}
+
+.body-do-painel {
+    width: 250px;
+    height: 100%;
+    background-color: #0460d9;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    transition: width 0.3s;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+}
+
+.notificacao {
+    display: flex; /* Ativa o modelo de layout flexível */
+    align-items: center; /* Alinha os elementos verticalmente ao centro */
+    margin-left: 80px;
+    width: 100%; /* Largura total */
+}
+
+.sino {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px; /* Espaçamento entre o sino e o texto */
+}
+
+.contador{
+    background-color: #ffff;
+    margin-left: 300px;
+    height: 200px;
+    width: 180px;
+    border-radius:15%;
+    text-align: center;
+    box-shadow: rgb(0,0,0,0.16) 0px 3px 6px, rgb(0,0,0,0.23) 0px 3px 6px;
+
+
+}
+.nao-definido{
+    background-color: #ffff;
+    margin-left: 500px;
+    margin-top: -200px;
+    height: 200px;
+    width: 400px;
+    border-radius:25px;
+    text-align: center;
+    box-shadow: rgb(0,0,0,0.16) 0px 3px 6px, rgb(0,0,0,0.23) 0px 3px 6px;
+
+
+}
+.calendario{
+    background-color: #ffff;
+    margin-left: 920px;
+    margin-top: -200px;
+    height: 555px;
+    width: 480px;
+    border-radius:25px;
+    text-align: center;
+    box-shadow: rgb(0,0,0,0.16) 0px 3px 6px, rgb(0,0,0,0.23) 0px 3px 6px;
+
+
+}
+.grafico{
+    background-color: #ffff;
+    margin-left: 300px;
+    margin-top: -330px;
+    height: 330px;
+    width: 600px;
+    border-radius:25px;
+    text-align: center;
+    box-shadow: rgb(0,0,0,0.16) 0px 3px 6px, rgb(0,0,0,0.23) 0px 3px 6px;
+}
+
+
+/*Estilos responsivos*/
+@media screen and (max-width:768px) {
+    .body-do-painel {
+        width: 150px;
+    }
+    .header {
+        margin-left: 200px; /* Remova a margem à esquerda em telas menores */
+        display: flex;
+        justify-content: flex-start; /* Alinhe o conteúdo à esquerda */
+    }
+    .contador,
+    .nao-definido,
+    .calendario,
+    .grafico {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+    }
+
+    .calendario {
+        width: 100%; /* Ajuste a largura para ocupar 100% do espaço disponível */
+        margin-left: 0; /* Remova a margem esquerda */
+        margin-top: 20px; /* Adicione um espaçamento superior */
+    }
+}
