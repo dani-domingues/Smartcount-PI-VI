@@ -114,7 +114,18 @@ jkjkjbhgcgfgcf
     text-align: center;
     box-shadow: rgb(0,0,0,0.16) 0px 3px 6px, rgb(0,0,0,0.23) 0px 3px 6px;
 }
+.quantidade-funcionarios-ativos{
+    background-color: #ffff;
+    height: 120px;
+    width: 140px;
+    border-radius: 15%;
+    text-align: center;
+    box-shadow: rgb(0,0,0,0.16) 0px 3px 6px, rgb(0,0,0,0.23) 0px 3px 6px;
+    display: flex; /* Ativa o modelo de layout flexível */
+    flex-direction: column; /* Alinha os elementos verticalmente */
+    justify-content: center; /* Alinha os elementos horizontalmente */
 
+}
 
 /*Estilos responsivos*/
 @media screen and (max-width:768px) {

@@ -50,7 +50,7 @@ fig_heatmap.update_traces(textfont=dict(color='black'))
 
 # Definindo os dados do gráfico de linha
 horas_do_dia = np.arange(6, 24)  # Horas de funcionamento: 6h às 23h
-quantidade_de_pessoas_por_hora = [10, 15, 100, 90, 90, 70, 20, 60, 90, 65, 30, 100, 95, 93, 30, 20, 16, 20, 12, 15, 10, 9, 11, 6]
+quantidade_de_pessoas_por_hora = [10, 15, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 190, 180, 150]
 
 # Criando o gráfico de linha
 fig_linha = go.Figure()
@@ -66,7 +66,7 @@ fig_linha.add_trace(go.Scatter(
 
 # Configurando o layout do gráfico de linha
 fig_linha.update_layout(
-    title='QUANTIDADE DE PESSOAS POR HORA',
+    title='Quantidade de Pessoas na Padaria por Hora',
     xaxis=dict(title='Hora do Dia'),
     yaxis=dict(title='Quantidade de Pessoas'),
     hovermode='x',
@@ -87,6 +87,10 @@ app.layout = html.Div([
                 html.H3(children='Notificações', className="body-do-painel-texto"),
                 html.Img(src="./assets/imagens/sino.png", alt="sino", className='sino'),
             ]),
+            html.Div(className="quantidade-funcionarios-ativos", children=[
+                html.Label("Funcionários Ativos:", className="body-do-painel-texto"),
+                html.H2("10", className="body-do-painel-texto")  # Quantidade de funcionários ativos
+            ])
         ]),
         html.Div(className="contador", children=[
             html.Label("PESSOAS", style={'marginBottom': '10px'}),
@@ -101,14 +105,14 @@ app.layout = html.Div([
         ]),
     ]),
     html.Div(className="nao-definido", children=[
-        html.Label(""),
+        html.Label("")
     ]),
     html.Div(className="calendario", children=[
         html.Label("CALENDARIO"),
         dcc.Graph(figure=fig_heatmap)
     ]),
     html.Div(className="grafico-de-linha", children=[
-        # html.Label("Gráfico de Linha"),
+        html.Label("grafico"),
         dcc.Graph(figure=fig_linha)
     ]),
 ])
