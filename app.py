@@ -2,9 +2,7 @@ from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
-import pandas as pd
-from plotly.subplots import make_subplots
-import plotly.graph_objects as go
+import numpy as np
 
 app = Dash(__name__)
 
@@ -50,6 +48,33 @@ fig_heatmap.update_layout(
 )
 fig_heatmap.update_traces(textfont=dict(color='black'))
 
+# Definindo os dados do gráfico de linha
+horas_do_dia = np.arange(6, 24)  # Horas de funcionamento: 6h às 23h
+quantidade_de_pessoas_por_hora = [10, 15, 100, 90, 90, 70, 20, 60, 90, 65, 30, 100, 95, 93, 30, 20, 16, 20, 12, 15, 10, 9, 11, 6]
+
+# Criando o gráfico de linha
+fig_linha = go.Figure()
+
+# Adicionando os dados ao gráfico de linha
+fig_linha.add_trace(go.Scatter(
+    x=horas_do_dia,
+    y=quantidade_de_pessoas_por_hora,
+    mode='lines+markers',
+    name='Quantidade de Pessoas',
+    marker=dict(color='blue')
+))
+
+# Configurando o layout do gráfico de linha
+fig_linha.update_layout(
+    title='QUANTIDADE DE PESSOAS POR HORA',
+    xaxis=dict(title='Hora do Dia'),
+    yaxis=dict(title='Quantidade de Pessoas'),
+    hovermode='x',
+    template='plotly_white',
+    height=330,  # Altura do gráfico
+    width=600   # Largura do gráfico
+)
+
 # Layout do aplicativo
 app.layout = html.Div([
     html.Div(className="body", children=[
@@ -61,39 +86,6 @@ app.layout = html.Div([
             html.Div(className="notificacao", children=[
                 html.H3(children='Notificações', className="body-do-painel-texto"),
                 html.Img(src="./assets/imagens/sino.png", alt="sino", className='sino'),
-            ]),
-            html.H3(children='Selecione para filtrar:', className="body-do-painel-texto"),
-            html.Div(className="painel-lateral", children=[
-                html.Label("Mês"),
-                dcc.Dropdown(
-                    options=[
-                        {"label": "2021", "value": "opcao1"},
-                        {"label": "2022", "value": "opcao2"},
-                    ],
-                    style={'align-items': 'center', 'justify-content': 'center', 'width': '95%'},
-                    searchable=False,
-                    id='demo-dropdown',
-                    placeholder="Selecione o mês",
-                    className='lateral-dropdown'
-                ),
-            ]),
-            html.Div(style={"margin-bottom": "20px"}),  # Espaçamento entre os dropdowns
-            html.Div(className="painel-lateral", id='base-dados-dropdown', children=[
-                html.Label("Unidade"),
-                dcc.Dropdown(
-                    options=[
-                        {"label": "Todas as regiões", "value": "Todas as regioes"},
-                        {"label": "Leste", "value": "LESTE"},
-                        {"label": "Norte", "value": "NORTE"},
-                        {"label": "Sul", "value": "SUL"},
-                        {"label": "Oeste", "value": "OESTE"},
-                    ],
-                    placeholder="Selecione a unidade",
-                    style={'align-items': 'center', 'justify-content': 'center', 'width': '95%'},
-                    searchable=False,
-                    id='dropdown-regiao',
-                    className='lateral-dropdown'
-                )
             ]),
         ]),
         html.Div(className="contador", children=[
@@ -115,8 +107,9 @@ app.layout = html.Div([
         html.Label("CALENDARIO"),
         dcc.Graph(figure=fig_heatmap)
     ]),
-    html.Div(className="grafico", children=[
-        html.Label("grafico"),
+    html.Div(className="grafico-de-linha", children=[
+        # html.Label("Gráfico de Linha"),
+        dcc.Graph(figure=fig_linha)
     ]),
 ])
 
