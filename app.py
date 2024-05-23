@@ -6,21 +6,37 @@ import numpy as np
 
 app = Dash(__name__)
 
-# Definição dos dados do mapa de calor para abril e maio
-heatmap_data_abril = [
-    [10, 20, 30, 40, 50, 60, 70],
-    [15, 25, 35, 45, 55, 65, 75],
-    [20, 30, 40, 50, 60, 70, 80],
-    [25, 35, 45, 55, 65, 75, 85],
-    [30, 40, 50, 60, 70, 80, 90],
+# Definição dos dados do mapa de calor para abril e maio para duas unidades
+heatmap_data_abril_unidade1 = [
+    [100, 29, 90, 80, 50, 60, 70],
+    [150, 89, 74, 45, 55, 65, 75],
+    [87, 30, 40, 50, 60, 70, 80],
+    [92, 35, 45, 55, 65, 75, 85],
+    [30, 40, 50, 60, 99, 80, 90],
 ]
 
-heatmap_data_maio = [
+heatmap_data_maio_unidade1 = [
     [0, 40, 30, 60, 24, 100, 99],
     [10, 45, 50, 25, 70, 97, 100],
     [15, 40, 32, 60, 99, 100, 98],
     [17, 37, 30, 60, 24, 95, 100],
     [11, 40, 30, 60, 89, 100, 99],
+]
+
+heatmap_data_abril_unidade2 = [
+    [12, 22, 32, 42, 52, 62, 72],
+    [17, 27, 37, 47, 57, 67, 77],
+    [22, 32, 42, 52, 62, 72, 82],
+    [27, 37, 47, 57, 67, 77, 87],
+    [32, 42, 52, 62, 72, 82, 92],
+]
+
+heatmap_data_maio_unidade2 = [
+    [2, 42, 32, 62, 26, 102, 101],
+    [12, 47, 52, 27, 72, 99, 102],
+    [17, 42, 34, 62, 101, 102, 100],
+    [19, 39, 32, 62, 26, 97, 102],
+    [13, 42, 32, 62, 91, 102, 101],
 ]
 
 # Números dos dias correspondentes ao heatmap_data
@@ -33,16 +49,22 @@ days_numbers = [
 ]
 
 # Função para criar o gráfico de calor
-def create_heatmap(month):
-    if month == 'Abril':
-        heatmap_data = heatmap_data_abril
+def create_heatmap(month, unit):
+    if unit == 'Unidade 1':
+        if month == 'Abril':
+            heatmap_data = heatmap_data_abril_unidade1
+        else:
+            heatmap_data = heatmap_data_maio_unidade1
     else:
-        heatmap_data = heatmap_data_maio
+        if month == 'Abril':
+            heatmap_data = heatmap_data_abril_unidade2
+        else:
+            heatmap_data = heatmap_data_maio_unidade2
     
     fig = go.Figure(data=go.Heatmap(z=heatmap_data, text=days_numbers, colorscale='blues'))
     fig.update_layout(
         title={
-            'text': month,
+            'text': f"{month} - {unit}",
             'x': 0.5,  # Define a posição horizontal do título
             'xanchor': 'center',  # Ancora o título ao centro horizontal
             'yanchor': 'top'  # Ancora o título ao topo vertical
@@ -65,7 +87,7 @@ def create_heatmap(month):
 
 # Definindo os dados do gráfico de linha
 horas_do_dia = np.arange(6, 24)  # Horas de funcionamento: 6h às 23h
-quantidade_de_pessoas_por_hora = [10, 15, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 190, 180, 150]
+quantidade_de_pessoas_por_hora = [30, 70, 80, 75, 70, 60, 50, 40, 30, 25, 25, 30, 70, 100, 140, 130, 160, 170, 180, 167, 100, 50, 100, 20]
 
 # Criando o gráfico de linha
 fig_linha = go.Figure()
@@ -91,7 +113,7 @@ fig_linha.update_layout(
 )
 
 # Lista dos 3 produtos mais vendidos
-produtos_mais_vendidos = ["Pão Francês", "Frios", "Leite", "Bolo"]
+produtos_mais_vendidos = ["Pão Francês", "Frios", "Leite"]
 
 # Layout do aplicativo
 app.layout = html.Div([
@@ -107,7 +129,7 @@ app.layout = html.Div([
             ]),
             html.Div(className="quantidade-funcionarios-ativos", children=[
                 html.Label("Funcionários Ativos:", className="body-do-painel-texto"),
-                html.H2("50", className="body-do-painel-texto")  # Quantidade de funcionários ativos
+                html.H2("15", className="body-do-painel-texto")  # Quantidade de funcionários ativos
             ]),
             html.Div(className="painel-lateral", style={'marginTop': '20px'}, children=[
                 html.Label("Selecione o Mês:", className="dropmes"),
@@ -131,6 +153,17 @@ app.layout = html.Div([
                     clearable=False,
                     className='lateral-dropdown'
                 ),
+                html.Label("Selecione a Unidade:", className="dropmes", style={'marginTop': '20px'}),
+                dcc.Dropdown(
+                    id='unit-dropdown',
+                    options=[
+                        {'label': 'Unidade 1', 'value': 'Unidade 1'},
+                        {'label': 'Unidade 2', 'value': 'Unidade 2'}
+                    ],
+                    value='Unidade 1',
+                    clearable=False,
+                    className='lateral-dropdown'
+                ),
             ]),
         ]),
         html.Div(className="contador", children=[
@@ -147,26 +180,27 @@ app.layout = html.Div([
     ]),
     html.Div(className="calendario", children=[
         html.Label("CALENDARIO"),
-        dcc.Graph(id='heatmap', figure=create_heatmap('Maio'))
+        dcc.Graph(id='heatmap', figure=create_heatmap('Maio', 'Unidade 1'))
     ]),
     html.Div(className="grafico-de-linha", children=[
         dcc.Graph(figure=fig_linha)
     ]),
     html.Div(className="nao-definido", children=[
         html.Label("PRODUTOS MAIS VENDIDOS:", className="body-do-painel-texto"),
-        html.Ol(style={'textAlign': 'left'}, children=[
+        html.Ul(style={'textAlign': 'left'}, children=[
             html.Li(produto) for produto in produtos_mais_vendidos
         ])
     ])
 ])
 
-# Callback para atualizar o gráfico de calor com base na seleção do mês
+# Callback para atualizar o gráfico de calor com base na seleção do mês e da unidade
 @app.callback(
     Output('heatmap', 'figure'),
-    Input('month-dropdown', 'value')
+    Input('month-dropdown', 'value'),
+    Input('unit-dropdown', 'value')
 )
-def update_heatmap(selected_month):
-    return create_heatmap(selected_month)
+def update_heatmap(selected_month, selected_unit):
+    return create_heatmap(selected_month, selected_unit)
 
 # Função de callback para atualizar o contador
 @app.callback(Output('contador-texto', 'children'), [Input('interval-component', 'n_intervals')])
