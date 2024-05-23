@@ -91,7 +91,7 @@ fig_linha.update_layout(
 )
 
 # Lista dos 3 produtos mais vendidos
-produtos_mais_vendidos = ["Pão Francês", "Frios", "Leite"]
+produtos_mais_vendidos = ["Pão Francês", "Frios", "Leite", "Bolo"]
 
 # Layout do aplicativo
 app.layout = html.Div([
@@ -154,7 +154,7 @@ app.layout = html.Div([
     ]),
     html.Div(className="nao-definido", children=[
         html.Label("PRODUTOS MAIS VENDIDOS:", className="body-do-painel-texto"),
-        html.Ul([
+        html.Ol(style={'textAlign': 'left'}, children=[
             html.Li(produto) for produto in produtos_mais_vendidos
         ])
     ])
