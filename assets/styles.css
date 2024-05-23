@@ -60,7 +60,7 @@ jkjkjbhgcgfgcf
 .contador {
     background-color: #ffff;
     margin-left: 300px;
-    height: 200px;
+    height: 180px;
     width: 180px;
     border-radius: 15%;
     text-align: center;
@@ -79,12 +79,16 @@ jkjkjbhgcgfgcf
 .nao-definido{
     background-color: #ffff;
     margin-left: 500px;
-    margin-top: -200px;
-    height: 200px;
+    margin-top: -540px;
+    height: 180px;
     width: 400px;
     border-radius:25px;
     text-align: center;
     box-shadow: rgb(0,0,0,0.16) 0px 3px 6px, rgb(0,0,0,0.23) 0px 3px 6px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex; /* Ativa o modelo de layout flexível */
+    flex-direction: column; /* Alinha os elementos verticalmente */
+    justify-content: center; /* Alinha os elementos horizontalmente */
 
 
 }

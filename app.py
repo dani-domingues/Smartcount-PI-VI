@@ -75,6 +75,9 @@ fig_linha.update_layout(
     width=600   # Largura do gráfico
 )
 
+# Lista dos 3 produtos mais vendidos
+produtos_mais_vendidos = ["Pão Francês", "Frios", "Leite"]
+
 # Layout do aplicativo
 app.layout = html.Div([
     html.Div(className="body", children=[
@@ -89,8 +92,9 @@ app.layout = html.Div([
             ]),
             html.Div(className="quantidade-funcionarios-ativos", children=[
                 html.Label("Funcionários Ativos:", className="body-do-painel-texto"),
-                html.H2("10", className="body-do-painel-texto")  # Quantidade de funcionários ativos
-            ])
+                html.H2("50", className="body-do-painel-texto")  # Quantidade de funcionários ativos
+            ]),
+ 
         ]),
         html.Div(className="contador", children=[
             html.Label("PESSOAS", style={'marginBottom': '10px'}),
@@ -104,17 +108,19 @@ app.layout = html.Div([
             )
         ]),
     ]),
-    html.Div(className="nao-definido", children=[
-        html.Label("")
-    ]),
     html.Div(className="calendario", children=[
         html.Label("CALENDARIO"),
         dcc.Graph(figure=fig_heatmap)
     ]),
     html.Div(className="grafico-de-linha", children=[
-        html.Label("grafico"),
         dcc.Graph(figure=fig_linha)
     ]),
+    html.Div(className="nao-definido", children=[
+    html.Label("PODUTOS MAIS VENDIDOS:", className="body-do-painel-texto"),
+    html.Ul([
+    html.Li(produto) for produto in produtos_mais_vendidos
+                ])
+            ])
 ])
 
 # Função de callback para atualizar o contador
